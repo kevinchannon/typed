@@ -48,10 +48,10 @@ TYPED_TEST(IndexTests, ConstructWithValue) {
   ASSERT_EQ(expected, idx.get());
 }
 
-TYPED_TEST(IndexTests, SetValue) {
+TYPED_TEST(IndexTests, AssignValue) {
   auto idx = index_type< Cat, TypeParam >{};
   constexpr auto expected = TypeParam{5};
-  idx.set(expected);
+  idx                     = index_type< Cat, TypeParam >{expected};
   
   ASSERT_EQ(expected, idx.get());
 }

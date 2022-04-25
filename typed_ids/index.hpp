@@ -13,8 +13,13 @@ class index_type {
   constexpr index_type() noexcept = default;
   constexpr explicit index_type(value_type value) noexcept : _value{std::move(value)} {}
 
+  constexpr index_type(const index_type&) noexcept = default;
+  constexpr index_type(index_type&&) noexcept      = default;
+
+  constexpr index_type& operator=(const index_type&) noexcept = default;
+  constexpr index_type& operator=(index_type&&) noexcept      = default;
+
   [[nodiscard]] constexpr const value_type& get() const noexcept { return _value; }
-  void set(value_type value) { _value = std::move(value); }
 
   [[nodiscard]] constexpr std::strong_ordering operator<=>(const index_type& other) const noexcept = default;
 
