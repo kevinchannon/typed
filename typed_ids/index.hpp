@@ -16,7 +16,7 @@ class index_type {
   [[nodiscard]] constexpr const value_type& get() const noexcept { return _value; }
   void set(value_type value) { _value = std::move(value); }
 
-  [[nodiscard]] constexpr std::strong_ordering operator<=>(const index_type& other) const = default;
+  [[nodiscard]] constexpr std::strong_ordering operator<=>(const index_type& other) const noexcept = default;
 
  private:
   value_type _value{0};
