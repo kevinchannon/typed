@@ -13,6 +13,8 @@ class id_type {
   [[nodiscard]] constexpr const value_type& get() const noexcept { return _value; }
   void set(value_type value) { _value = std::move(value); }
 
+  [[nodiscard]] constexpr std::strong_ordering operator<=>(const id_type& other) const = default;
+
   private:
   value_type _value;
 };

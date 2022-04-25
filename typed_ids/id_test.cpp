@@ -64,4 +64,15 @@ TYPED_TEST(IdTests, SetValue) {
   ASSERT_EQ(this->get_value(), id.get());
 }
 
+TYPED_TEST(IdTests, CompareValues) {
+  const auto id_0 = id_type< Dog, TypeParam >{};
+  const auto id_1 = id_type< Dog, TypeParam >{this->get_value()};
+  const auto id_2 = id_type< Dog, TypeParam >{this->get_value()};
+  
+  EXPECT_NE(id_0, id_1);
+  EXPECT_EQ(id_1, id_2);
+  EXPECT_GT(id_1, id_0);
+  EXPECT_LT(id_0, id_1);
+}
+
 ///////////////////////////////////////////////////////////////////////////////
