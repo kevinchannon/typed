@@ -10,7 +10,11 @@ class index_type {
  public:
   using value_type = Value_T;
 
+  constexpr index_type() noexcept = default;
+  constexpr explicit index_type(value_type value) noexcept : _value{std::move(value)} {}
+
   [[nodiscard]] constexpr const value_type& get() const noexcept { return _value; }
+  void set(value_type value) { _value = std::move(value); }
 
  private:
   value_type _value{0};

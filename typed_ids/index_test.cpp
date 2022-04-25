@@ -45,4 +45,15 @@ TYPED_TEST(IndexTests, DefaultConstructToZero) {
   ASSERT_EQ(expected, idx.get());
 }
 
+TYPED_TEST(IndexTests, ConstructWithValue) {
+  const auto idx = index_type< Cat, TypeParam >{this->get_value()};
+  ASSERT_EQ(this->get_value(), idx.get());
+}
+
+TYPED_TEST(IndexTests, SetValue) {
+  auto idx = index_type< Cat, TypeParam >{};
+  idx.set(this->get_value());
+  ASSERT_EQ(this->get_value(), idx.get());
+}
+
 ///////////////////////////////////////////////////////////////////////////////
