@@ -23,6 +23,12 @@ class index_type {
     return *this;
   }
 
+  index_type operator++(int) noexcept {
+    auto out = *this;
+    ++_value;
+    return out;
+  }
+
  private:
   value_type _value{0};
 };
