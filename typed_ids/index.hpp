@@ -18,6 +18,11 @@ class index_type {
 
   [[nodiscard]] constexpr std::strong_ordering operator<=>(const index_type& other) const noexcept = default;
 
+  index_type& operator++() noexcept {
+    ++_value;
+    return *this;
+  }
+
  private:
   value_type _value{0};
 };

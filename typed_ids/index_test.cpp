@@ -67,4 +67,10 @@ TYPED_TEST(IndexTests, CompareValues) {
   EXPECT_LT(idx_0, idx_1);
 }
 
+TYPED_TEST(IndexTests, PreIncrement) {
+  auto idx = index_type< Cat, TypeParam >{};
+  ++idx;
+  ASSERT_EQ(1, idx.get());
+}
+
 ///////////////////////////////////////////////////////////////////////////////
