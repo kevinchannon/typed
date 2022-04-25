@@ -55,8 +55,13 @@ TYPED_TEST(IdTests, DefaultConstructToDefaultValue) {
 
 TYPED_TEST(IdTests, ConstructWithValue) {
   const auto id       = id_type< Dog, TypeParam >{this->get_value()};
-  const auto expected = this->get_value();
-  ASSERT_EQ(expected, id.get());
+  ASSERT_EQ(this->get_value(), id.get());
+}
+
+TYPED_TEST(IdTests, SetValue) {
+  auto id = id_type< Dog, TypeParam >{};
+  id.set(this->get_value());
+  ASSERT_EQ(this->get_value(), id.get());
 }
 
 ///////////////////////////////////////////////////////////////////////////////

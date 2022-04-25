@@ -11,6 +11,7 @@ class id_type {
   constexpr explicit id_type(value_type value) noexcept : _value{std::move(value)} {}
 
   [[nodiscard]] constexpr const value_type& get() const noexcept { return _value; }
+  void set(value_type value) { _value = std::move(value); }
 
   private:
   value_type _value;
