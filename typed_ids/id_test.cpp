@@ -21,7 +21,21 @@ class IdTypeNames {
 };
 
 template<typename Tested_T>
-struct IdTests : public testing::Test {};
+struct IdTests : public testing::Test
+{
+ public:
+   [[nodiscard]] constexpr Tested_T get_value() const {
+    if constexpr (std::is_same< Tested_T, size_t >()) {
+      return 10;
+    }
+    if constexpr (std::is_same< Tested_T, int >()) {
+      return 20;
+    }
+    if constexpr (std::is_same< Tested_T, std::string >()) {
+      return "ID: 1";
+    }
+  }
+};
 
 TYPED_TEST_CASE(IdTests, IdTypes, IdTypeNames);
 
@@ -36,6 +50,12 @@ struct Dog {};
 TYPED_TEST(IdTests, DefaultConstructToDefaultValue) {
   const auto id = id_type<Dog, TypeParam >{};
   const auto expected = TypeParam{};
+  ASSERT_EQ(expected, id.get());
+}
+
+TYPED_TEST(IdTests, ConstructWithValue) {
+  const auto id       = id_type< Dog, TypeParam >{this->get_value()};
+  const auto expected = this->get_value();
   ASSERT_EQ(expected, id.get());
 }
 
