@@ -56,4 +56,15 @@ TYPED_TEST(IndexTests, SetValue) {
   ASSERT_EQ(this->get_value(), idx.get());
 }
 
+TYPED_TEST(IndexTests, CompareValues) {
+  const auto idx_0 = index_type< Cat, TypeParam >{};
+  const auto idx_1 = index_type< Cat, TypeParam >{this->get_value()};
+  const auto idx_2 = index_type< Cat, TypeParam >{this->get_value()};
+
+  EXPECT_NE(idx_0, idx_1);
+  EXPECT_EQ(idx_1, idx_2);
+  EXPECT_GT(idx_1, idx_0);
+  EXPECT_LT(idx_0, idx_1);
+}
+
 ///////////////////////////////////////////////////////////////////////////////
