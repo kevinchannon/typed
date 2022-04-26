@@ -23,10 +23,12 @@ class index_type {
 
   [[nodiscard]] constexpr std::strong_ordering operator<=>(const index_type& other) const noexcept = default;
 
-  index_type& operator++() noexcept {
-    ++_value;
+  index_type& operator+=(const index_type& other) noexcept {
+    _value += other._value;
     return *this;
   }
+
+  index_type& operator++() noexcept { return *this += index_type{1}; }
 
   index_type operator++(int) noexcept {
     auto out = *this;

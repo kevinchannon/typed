@@ -69,7 +69,7 @@ TYPED_TEST(IndexTests, CompareValues) {
 
 TYPED_TEST(IndexTests, PreIncrement) {
   auto idx = index_type< Cat, TypeParam >{};
-  ++idx;
+  ASSERT_EQ(1, (++idx).get());
   ASSERT_EQ(1, idx.get());
 }
 
@@ -79,6 +79,13 @@ TYPED_TEST(IndexTests, PostIncrement) {
   const auto val = idx++;
   ASSERT_EQ(expected, val.get());
   ASSERT_EQ(1 + expected, idx.get());
+}
+TYPED_TEST(IndexTests, IncrementAssignment) {
+  constexpr auto n = TypeParam{10};
+  auto idx                = index_type< Cat, TypeParam >{n};
+  constexpr auto increment = index_type< Cat, TypeParam >{5};
+  ASSERT_EQ(n + increment.get(), (idx += increment).get());
+  ASSERT_EQ(n + increment.get(), idx.get());
 }
 
 ///////////////////////////////////////////////////////////////////////////////
