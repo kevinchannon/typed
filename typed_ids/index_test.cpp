@@ -135,14 +135,6 @@ TYPED_TEST(IndexTests, RightAddValueType) {
   ASSERT_EQ(initial + offset, idx.get());
 }
 
-TYPED_TEST(IndexTests, LeftAddValueType) {
-  constexpr auto initial = TypeParam{10};
-  constexpr auto offset  = TypeParam{5};
-  const auto idx         = offset + index_type< Cat, TypeParam >{initial};
-
-  ASSERT_EQ(initial + offset, idx.get());
-}
-
 TYPED_TEST(IndexTests, Offset) {
   constexpr auto initial = TypeParam{10};
   constexpr auto offset  = TypeParam{5};
