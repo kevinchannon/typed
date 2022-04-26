@@ -40,6 +40,21 @@ class index_type {
     return out;
   }
 
+  index_type& operator-=(value_type decrement) noexcept {
+    _value -= decrement;
+    return *this;
+  }
+
+  index_type& operator-=(const index_type& other) noexcept { return *this -= other._value; }
+
+  index_type& operator--() noexcept { return *this -= index_type{1}; }
+
+  index_type operator--(int) noexcept {
+    auto out = *this;
+    --_value;
+    return out;
+  }
+
  private:
   value_type _value{0};
 };

@@ -97,4 +97,34 @@ TYPED_TEST(IndexTests, IncrementAssignmentWithValueType) {
   ASSERT_EQ(n + increment, idx.get());
 }
 
+TYPED_TEST(IndexTests, PreDecrement) {
+  auto idx = index_type< Cat, TypeParam >{2};
+  ASSERT_EQ(1, (--idx).get());
+  ASSERT_EQ(1, idx.get());
+}
+
+TYPED_TEST(IndexTests, PostDecrement) {
+  constexpr auto expected = TypeParam{10};
+  auto idx                = index_type< Cat, TypeParam >{expected};
+  const auto val          = idx--;
+  ASSERT_EQ(expected, val.get());
+  ASSERT_EQ(expected - 1, idx.get());
+}
+
+TYPED_TEST(IndexTests, DecrementAssignment) {
+  constexpr auto n         = TypeParam{10};
+  auto idx                 = index_type< Cat, TypeParam >{n};
+  constexpr auto decrement = index_type< Cat, TypeParam >{5};
+  ASSERT_EQ(n - decrement.get(), (idx -= decrement).get());
+  ASSERT_EQ(n - decrement.get(), idx.get());
+}
+
+TYPED_TEST(IndexTests, DecrementAssignmentWithValueType) {
+  constexpr auto n         = TypeParam{10};
+  auto idx                 = index_type< Cat, TypeParam >{n};
+  constexpr auto decrement = TypeParam{5};
+  ASSERT_EQ(n - decrement, (idx -= decrement).get());
+  ASSERT_EQ(n - decrement, idx.get());
+}
+
 ///////////////////////////////////////////////////////////////////////////////
