@@ -37,29 +37,29 @@ struct Cat {};
 ///////////////////////////////////////////////////////////////////////////////
 
 TYPED_TEST(IndexTests, DefaultConstructToZero) {
-  const auto idx       = index_type< Cat, TypeParam >{};
+  const auto idx       = typed::index< Cat, TypeParam >{};
   const auto expected = TypeParam{0};
   ASSERT_EQ(expected, idx.get());
 }
 
 TYPED_TEST(IndexTests, ConstructWithValue) {
   constexpr auto expected = TypeParam{10};
-  const auto idx = index_type< Cat, TypeParam >{expected};
+  const auto idx = typed::index< Cat, TypeParam >{expected};
   ASSERT_EQ(expected, idx.get());
 }
 
 TYPED_TEST(IndexTests, AssignValue) {
-  auto idx = index_type< Cat, TypeParam >{};
+  auto idx = typed::index< Cat, TypeParam >{};
   constexpr auto expected = TypeParam{5};
-  idx                     = index_type< Cat, TypeParam >{expected};
+  idx                     = typed::index< Cat, TypeParam >{expected};
   
   ASSERT_EQ(expected, idx.get());
 }
 
 TYPED_TEST(IndexTests, CompareValues) {
-  const auto idx_0 = index_type< Cat, TypeParam >{};
-  const auto idx_1 = index_type< Cat, TypeParam >{10};
-  const auto idx_2 = index_type< Cat, TypeParam >{10};
+  const auto idx_0 = typed::index< Cat, TypeParam >{};
+  const auto idx_1 = typed::index< Cat, TypeParam >{10};
+  const auto idx_2 = typed::index< Cat, TypeParam >{10};
 
   EXPECT_NE(idx_0, idx_1);
   EXPECT_EQ(idx_1, idx_2);
@@ -68,14 +68,14 @@ TYPED_TEST(IndexTests, CompareValues) {
 }
 
 TYPED_TEST(IndexTests, PreIncrement) {
-  auto idx = index_type< Cat, TypeParam >{};
+  auto idx = typed::index< Cat, TypeParam >{};
   ASSERT_EQ(1, (++idx).get());
   ASSERT_EQ(1, idx.get());
 }
 
 TYPED_TEST(IndexTests, PostIncrement) {
   constexpr auto expected = TypeParam{10};
-  auto idx = index_type< Cat, TypeParam >{expected};
+  auto idx = typed::index< Cat, TypeParam >{expected};
   const auto val = idx++;
   ASSERT_EQ(expected, val.get());
   ASSERT_EQ(1 + expected, idx.get());
@@ -83,29 +83,29 @@ TYPED_TEST(IndexTests, PostIncrement) {
 
 TYPED_TEST(IndexTests, IncrementAssignment) {
   constexpr auto n = TypeParam{10};
-  auto idx                = index_type< Cat, TypeParam >{n};
-  constexpr auto increment = index_type< Cat, TypeParam >{5};
+  auto idx                = typed::index< Cat, TypeParam >{n};
+  constexpr auto increment = typed::index< Cat, TypeParam >{5};
   ASSERT_EQ(n + increment.get(), (idx += increment).get());
   ASSERT_EQ(n + increment.get(), idx.get());
 }
 
 TYPED_TEST(IndexTests, IncrementAssignmentWithValueType) {
   constexpr auto n         = TypeParam{10};
-  auto idx                 = index_type< Cat, TypeParam >{n};
+  auto idx                 = typed::index< Cat, TypeParam >{n};
   constexpr auto increment = TypeParam{5};
   ASSERT_EQ(n + increment, (idx += increment).get());
   ASSERT_EQ(n + increment, idx.get());
 }
 
 TYPED_TEST(IndexTests, PreDecrement) {
-  auto idx = index_type< Cat, TypeParam >{2};
+  auto idx = typed::index< Cat, TypeParam >{2};
   ASSERT_EQ(1, (--idx).get());
   ASSERT_EQ(1, idx.get());
 }
 
 TYPED_TEST(IndexTests, PostDecrement) {
   constexpr auto expected = TypeParam{10};
-  auto idx                = index_type< Cat, TypeParam >{expected};
+  auto idx                = typed::index< Cat, TypeParam >{expected};
   const auto val          = idx--;
   ASSERT_EQ(expected, val.get());
   ASSERT_EQ(expected - 1, idx.get());
@@ -113,15 +113,15 @@ TYPED_TEST(IndexTests, PostDecrement) {
 
 TYPED_TEST(IndexTests, DecrementAssignment) {
   constexpr auto n         = TypeParam{10};
-  auto idx                 = index_type< Cat, TypeParam >{n};
-  constexpr auto decrement = index_type< Cat, TypeParam >{5};
+  auto idx                 = typed::index< Cat, TypeParam >{n};
+  constexpr auto decrement = typed::index< Cat, TypeParam >{5};
   ASSERT_EQ(n - decrement.get(), (idx -= decrement).get());
   ASSERT_EQ(n - decrement.get(), idx.get());
 }
 
 TYPED_TEST(IndexTests, DecrementAssignmentWithValueType) {
   constexpr auto n         = TypeParam{10};
-  auto idx                 = index_type< Cat, TypeParam >{n};
+  auto idx                 = typed::index< Cat, TypeParam >{n};
   constexpr auto decrement = TypeParam{5};
   ASSERT_EQ(n - decrement, (idx -= decrement).get());
   ASSERT_EQ(n - decrement, idx.get());
@@ -130,7 +130,7 @@ TYPED_TEST(IndexTests, DecrementAssignmentWithValueType) {
 TYPED_TEST(IndexTests, RightAddValueType) {
   constexpr auto initial = TypeParam{10};
   constexpr auto offset  = TypeParam{5};
-  const auto idx         = index_type< Cat, TypeParam >{initial} + offset;
+  const auto idx         = typed::index< Cat, TypeParam >{initial} + offset;
 
   ASSERT_EQ(initial + offset, idx.get());
 }
@@ -138,7 +138,7 @@ TYPED_TEST(IndexTests, RightAddValueType) {
 TYPED_TEST(IndexTests, Offset) {
   constexpr auto initial = TypeParam{10};
   constexpr auto offset  = TypeParam{5};
-  const auto idx         = index_type< Cat, TypeParam >{initial} + index_type< Cat, TypeParam >{offset};
+  const auto idx         = typed::index< Cat, TypeParam >{initial} + typed::index< Cat, TypeParam >{offset};
 
   ASSERT_EQ(initial + offset, idx.get());
 }
@@ -146,7 +146,7 @@ TYPED_TEST(IndexTests, Offset) {
 TYPED_TEST(IndexTests, RightSubtractValueType) {
   constexpr auto initial = TypeParam{10};
   constexpr auto offset  = TypeParam{5};
-  const auto idx         = index_type< Cat, TypeParam >{initial} - offset;
+  const auto idx         = typed::index< Cat, TypeParam >{initial} - offset;
 
   ASSERT_EQ(initial - offset, idx.get());
 }
@@ -154,7 +154,7 @@ TYPED_TEST(IndexTests, RightSubtractValueType) {
 TYPED_TEST(IndexTests, Difference) {
   constexpr auto initial = TypeParam{10};
   constexpr auto offset  = TypeParam{5};
-  const auto idx         = index_type< Cat, TypeParam >{initial} - index_type< Cat, TypeParam >{offset};
+  const auto idx         = typed::index< Cat, TypeParam >{initial} - typed::index< Cat, TypeParam >{offset};
 
   ASSERT_EQ(initial - offset, idx.get());
 }
