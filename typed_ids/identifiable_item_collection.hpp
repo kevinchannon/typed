@@ -19,7 +19,7 @@ class identifiable_item_collection {
   using index_type = index< _this_type, Index_T >;
   using size_type  = typename index_type::value_type;
 
-  [[nodiscard]] constexpr size_type size() const noexcept { return 0; }
+  [[nodiscard]] constexpr size_type size() const noexcept { return static_cast< size_type >(_values.size()); }
 
   value_type* add(value_type val) {
     _values.push_back(std::move(val));
@@ -27,7 +27,7 @@ class identifiable_item_collection {
   }
 
  private:
-  std::vector<value_type> _values;
+  std::vector< value_type > _values;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

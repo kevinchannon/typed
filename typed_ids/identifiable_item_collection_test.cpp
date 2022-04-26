@@ -28,6 +28,14 @@ TEST(IdentifiableItemCollectionTests, AddAnItem) {
   ASSERT_EQ(Duck::id_type{"duck-001"}, new_duck->id());
 }
 
+TEST(IdentifiableItemCollectionTests, SizeIsCorrect) {
+  auto ducks          = Ducks{};
+  ducks.add(Duck{"duck-001"});
+  ducks.add(Duck{"duck-002"});
+
+  ASSERT_EQ(Ducks::size_type{2}, ducks.size());
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 }  // namespace
