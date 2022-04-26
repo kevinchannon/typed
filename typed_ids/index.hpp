@@ -64,6 +64,18 @@ class index_type {
     return out;
   }
 
+  [[nodiscard]] constexpr index_type operator-(value_type value) const noexcept {
+    auto out = *this;
+    out -= value;
+    return out;
+  }
+
+  [[nodiscard]] constexpr index_type operator-(index_type other) const noexcept {
+    auto out = *this;
+    out -= other._value;
+    return out;
+  }
+
  private:
   value_type _value{0};
 };

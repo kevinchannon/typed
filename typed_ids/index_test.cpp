@@ -151,4 +151,20 @@ TYPED_TEST(IndexTests, Offset) {
   ASSERT_EQ(initial + offset, idx.get());
 }
 
+TYPED_TEST(IndexTests, RightSubtractValueType) {
+  constexpr auto initial = TypeParam{10};
+  constexpr auto offset  = TypeParam{5};
+  const auto idx         = index_type< Cat, TypeParam >{initial} - offset;
+
+  ASSERT_EQ(initial - offset, idx.get());
+}
+
+TYPED_TEST(IndexTests, Difference) {
+  constexpr auto initial = TypeParam{10};
+  constexpr auto offset  = TypeParam{5};
+  const auto idx         = index_type< Cat, TypeParam >{initial} - index_type< Cat, TypeParam >{offset};
+
+  ASSERT_EQ(initial - offset, idx.get());
+}
+
 ///////////////////////////////////////////////////////////////////////////////
