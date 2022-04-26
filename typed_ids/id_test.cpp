@@ -58,9 +58,9 @@ TYPED_TEST(IdTests, ConstructWithValue) {
   ASSERT_EQ(this->get_value(), id.get());
 }
 
-TYPED_TEST(IdTests, SetValue) {
+TYPED_TEST(IdTests, AssignValue) {
   auto id = id_type< Dog, TypeParam >{};
-  id.set(this->get_value());
+  id      = id_type< Dog, TypeParam >{this->get_value()};
   ASSERT_EQ(this->get_value(), id.get());
 }
 

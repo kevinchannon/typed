@@ -10,8 +10,13 @@ class id_type {
   constexpr id_type() noexcept = default;
   constexpr explicit id_type(value_type value) noexcept : _value{std::move(value)} {}
 
+  constexpr id_type(const id_type&) noexcept = default;
+  constexpr id_type(id_type&&) noexcept      = default;
+
+  constexpr id_type& operator=(const id_type&) noexcept = default;
+  constexpr id_type& operator=(id_type&&) noexcept      = default;
+
   [[nodiscard]] constexpr const value_type& get() const noexcept { return _value; }
-  void set(value_type value) { _value = std::move(value); }
 
   [[nodiscard]] constexpr std::strong_ordering operator<=>(const id_type& other) const = default;
 
