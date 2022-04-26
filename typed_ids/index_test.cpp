@@ -127,10 +127,18 @@ TYPED_TEST(IndexTests, DecrementAssignmentWithValueType) {
   ASSERT_EQ(n - decrement, idx.get());
 }
 
-TYPED_TEST(IndexTests, OffsetWithValueType) {
+TYPED_TEST(IndexTests, RightAddValueType) {
   constexpr auto initial = TypeParam{10};
   constexpr auto offset  = TypeParam{5};
   const auto idx         = index_type< Cat, TypeParam >{initial} + offset;
+
+  ASSERT_EQ(initial + offset, idx.get());
+}
+
+TYPED_TEST(IndexTests, LeftAddValueType) {
+  constexpr auto initial = TypeParam{10};
+  constexpr auto offset  = TypeParam{5};
+  const auto idx         = offset + index_type< Cat, TypeParam >{initial};
 
   ASSERT_EQ(initial + offset, idx.get());
 }

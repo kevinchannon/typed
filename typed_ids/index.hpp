@@ -68,4 +68,9 @@ class index_type {
   value_type _value{0};
 };
 
+template<typename Id_T, typename Value_T>
+[[nodiscard]] constexpr index_type< Id_T, Value_T > operator+(Value_T val, index_type<Id_T, Value_T> idx) noexcept{
+  return idx + val;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
