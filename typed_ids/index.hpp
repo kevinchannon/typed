@@ -59,6 +59,11 @@ class index_type {
     return out;
   }
 
+  [[nodiscard]] constexpr index_type operator+(index_type out) const noexcept {
+    out += _value;
+    return out;
+  }
+
  private:
   value_type _value{0};
 };
