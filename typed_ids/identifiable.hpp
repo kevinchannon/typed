@@ -16,6 +16,7 @@ class identifiable_mixin {
   using id_type = id< _base_type, Id_T >;
 
   constexpr explicit identifiable_mixin(id_type id) : _id{std::move(id)} {}
+  constexpr explicit identifiable_mixin(typename id_type::value_type id) : _id{std::move(id)} {}
 
   [[nodiscard]] constexpr const id_type& id() const noexcept { return _id; }
   void set_id(id_type id) noexcept { _id = std::move(id); }

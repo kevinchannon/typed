@@ -35,10 +35,13 @@
   <ItemGroup>
     <ClInclude Include="id.hpp" />
     <ClInclude Include="identifiable.hpp" />
+    <ClInclude Include="identifiable_item_collection.hpp" />
     <ClInclude Include="index.hpp" />
+    <ClInclude Include="io\idio.hpp" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="identifiable_item_collection_test.cpp" />
     <ClCompile Include="identifiable_test.cpp" />
     <ClCompile Include="id_test.cpp" />
     <ClCompile Include="pch.cpp">
