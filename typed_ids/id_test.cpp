@@ -2,6 +2,10 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
+namespace {
+
+///////////////////////////////////////////////////////////////////////////////
+
 using IdTypes = ::testing::Types< size_t, int, std::string >;
 
 class IdTypeNames {
@@ -20,11 +24,10 @@ class IdTypeNames {
   }
 };
 
-template<typename Tested_T>
-struct IdTests : public testing::Test
-{
+template < typename Tested_T >
+struct IdTests : public testing::Test {
  public:
-   [[nodiscard]] constexpr Tested_T get_value() const {
+  [[nodiscard]] constexpr Tested_T get_value() const {
     if constexpr (std::is_same< Tested_T, size_t >()) {
       return 10;
     }
@@ -42,13 +45,13 @@ TYPED_TEST_CASE(IdTests, IdTypes, IdTypeNames);
 ///////////////////////////////////////////////////////////////////////////////
 
 namespace {
-struct Dog {};
+  struct Dog {};
 }  // namespace
 
 ///////////////////////////////////////////////////////////////////////////////
 
 TYPED_TEST(IdTests, DefaultConstructToDefaultValue) {
-  const auto id = typed::id<Dog, TypeParam >{};
+  const auto id       = typed::id< Dog, TypeParam >{};
   const auto expected = TypeParam{};
   ASSERT_EQ(expected, id.get());
 }
@@ -68,11 +71,15 @@ TYPED_TEST(IdTests, CompareValues) {
   const auto id_0 = typed::id< Dog, TypeParam >{};
   const auto id_1 = typed::id< Dog, TypeParam >{this->get_value()};
   const auto id_2 = typed::id< Dog, TypeParam >{this->get_value()};
-  
+
   EXPECT_NE(id_0, id_1);
   EXPECT_EQ(id_1, id_2);
   EXPECT_GT(id_1, id_0);
   EXPECT_LT(id_0, id_1);
 }
+
+///////////////////////////////////////////////////////////////////////////////
+
+}  // namespace
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -2,6 +2,10 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
+namespace {
+
+///////////////////////////////////////////////////////////////////////////////
+
 using IndexTypes = ::testing::Types< uint8_t, uint16_t, uint32_t, uint64_t >;
 
 class IndexTypeNames {
@@ -31,28 +35,28 @@ TYPED_TEST_CASE(IndexTests, IndexTypes, IndexTypeNames);
 ///////////////////////////////////////////////////////////////////////////////
 
 namespace {
-struct Cat {};
+  struct Cat {};
 }  // namespace
 
 ///////////////////////////////////////////////////////////////////////////////
 
 TYPED_TEST(IndexTests, DefaultConstructToZero) {
-  const auto idx       = typed::index< Cat, TypeParam >{};
+  const auto idx      = typed::index< Cat, TypeParam >{};
   const auto expected = TypeParam{0};
   ASSERT_EQ(expected, idx.get());
 }
 
 TYPED_TEST(IndexTests, ConstructWithValue) {
   constexpr auto expected = TypeParam{10};
-  const auto idx = typed::index< Cat, TypeParam >{expected};
+  const auto idx          = typed::index< Cat, TypeParam >{expected};
   ASSERT_EQ(expected, idx.get());
 }
 
 TYPED_TEST(IndexTests, AssignValue) {
-  auto idx = typed::index< Cat, TypeParam >{};
+  auto idx                = typed::index< Cat, TypeParam >{};
   constexpr auto expected = TypeParam{5};
   idx                     = typed::index< Cat, TypeParam >{expected};
-  
+
   ASSERT_EQ(expected, idx.get());
 }
 
@@ -75,15 +79,15 @@ TYPED_TEST(IndexTests, PreIncrement) {
 
 TYPED_TEST(IndexTests, PostIncrement) {
   constexpr auto expected = TypeParam{10};
-  auto idx = typed::index< Cat, TypeParam >{expected};
-  const auto val = idx++;
+  auto idx                = typed::index< Cat, TypeParam >{expected};
+  const auto val          = idx++;
   ASSERT_EQ(expected, val.get());
   ASSERT_EQ(1 + expected, idx.get());
 }
 
 TYPED_TEST(IndexTests, IncrementAssignment) {
-  constexpr auto n = TypeParam{10};
-  auto idx                = typed::index< Cat, TypeParam >{n};
+  constexpr auto n         = TypeParam{10};
+  auto idx                 = typed::index< Cat, TypeParam >{n};
   constexpr auto increment = typed::index< Cat, TypeParam >{5};
   ASSERT_EQ(n + increment.get(), (idx += increment).get());
   ASSERT_EQ(n + increment.get(), idx.get());
@@ -158,5 +162,9 @@ TYPED_TEST(IndexTests, Difference) {
 
   ASSERT_EQ(initial - offset, idx.get());
 }
+
+///////////////////////////////////////////////////////////////////////////////
+
+}  // namespace
 
 ///////////////////////////////////////////////////////////////////////////////
