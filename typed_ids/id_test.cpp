@@ -1,5 +1,7 @@
 #include "id.hpp"
 
+using namespace type;
+
 ///////////////////////////////////////////////////////////////////////////////
 
 using IdTypes = ::testing::Types< size_t, int, std::string >;
