@@ -1,6 +1,7 @@
 #pragma once
 
 #include <type_traits>
+#include <compare>
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -25,7 +26,7 @@ class index {
 
   [[nodiscard]] constexpr const value_type& get() const noexcept { return _value; }
 
-  [[nodiscard]] constexpr std::strong_ordering operator<=>(const index& other) const noexcept = default;
+  [[nodiscard]] auto operator<=>(const index& other) const = default;
 
   constexpr index& operator+=(value_type increment) noexcept {
     _value += increment;

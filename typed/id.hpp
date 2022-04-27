@@ -1,5 +1,7 @@
 #pragma once
 
+#include <compare>
+
 ///////////////////////////////////////////////////////////////////////////////
 
 namespace typed {
@@ -22,7 +24,7 @@ class id {
 
   [[nodiscard]] constexpr const value_type& get() const noexcept { return _value; }
 
-  [[nodiscard]] constexpr std::strong_ordering operator<=>(const id& other) const = default;
+  [[nodiscard]] auto operator<=>(const id<Id_T, Value_T>& other) const = default;
 
  private:
   value_type _value;
