@@ -45,6 +45,13 @@ TEST_F(IdentifiableItemCollectionTests, SizeIsCorrect) {
   ASSERT_EQ(Ducks::size_type{2}, ducks.size());
 }
 
+TEST_F(IdentifiableItemCollectionTests, CountAndSizeReturnTheSameValue) {
+  ducks.add(Duck{"duck-001"});
+  ducks.add(Duck{"duck-002"});
+
+  ASSERT_EQ(ducks.size(), ducks.count());
+}
+
 TEST_F(IdentifiableItemCollectionTests, GetReturnsTheExpectedItem) {
   ducks.add(Duck{"duck-001"});
   ducks.add(Duck{"duck-002"});

@@ -21,6 +21,7 @@ class identifiable_item_collection {
   using size_type  = typename index_type::value_type;
 
   [[nodiscard]] constexpr size_type size() const noexcept { return static_cast< size_type >(_values.size()); }
+  [[nodiscard]] constexpr size_type count() const noexcept { return size(); }
 
   value_type* const add(value_type val) { return add(std::make_unique< value_type >(std::move(val))); }
 
