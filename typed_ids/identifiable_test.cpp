@@ -28,12 +28,6 @@ TEST(IdentifiableTests, ConstructWithIdValueType) {
   ASSERT_EQ(Sheep::id_type{100}, x.id());
 }
 
-TEST(IdentifiableTests, SettingId) {
-  auto x = Sheep{Sheep::id_type{4321}};
-  x.set_id(Sheep::id_type{5678});
-  ASSERT_EQ(Sheep::id_type{5678}, x.id());
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 
 }  // namespace
