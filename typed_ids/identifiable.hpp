@@ -15,9 +15,9 @@ class identifiable_mixin {
  public:
   using id_type = id< _base_type, Id_T >;
 
-  identifiable_mixin() noexcept = delete;
-  identifiable_mixin(const identifiable_mixin&) = default;
-  identifiable_mixin(identifiable_mixin&&) noexcept = default;
+  identifiable_mixin() noexcept                                = delete;
+  identifiable_mixin(const identifiable_mixin&)                = default;
+  identifiable_mixin(identifiable_mixin&&) noexcept            = default;
   identifiable_mixin& operator=(const identifiable_mixin&)     = default;
   identifiable_mixin& operator=(identifiable_mixin&&) noexcept = default;
   auto operator<=>(const identifiable_mixin&) const            = default;
