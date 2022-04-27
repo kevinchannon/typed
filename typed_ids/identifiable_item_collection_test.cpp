@@ -1,7 +1,7 @@
 
-#include "identifiable_item_collection.hpp"
-#include "identifiable.hpp"
-#include "io/idio.hpp"
+#include <typed/identifiable_item_collection.hpp>
+#include <typed/identifiable.hpp>
+#include <typed/io/idio.hpp>
 
 #include <string>
 

@@ -5,6 +5,19 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "typed_ids", "typed_ids\typed_ids.vcxproj", "{1ACAEDD8-7355-4B58-A3BF-12521D619ACD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "typed", "typed", "{3ADE074C-8157-46DB-BA70-C326A4C9C67D}"
+	ProjectSection(SolutionItems) = preProject
+		typed\id.hpp = typed\id.hpp
+		typed\identifiable.hpp = typed\identifiable.hpp
+		typed\identifiable_item_collection.hpp = typed\identifiable_item_collection.hpp
+		typed\index.hpp = typed\index.hpp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "io", "io", "{1D631250-60AD-4FFD-958E-B13FCD65585A}"
+	ProjectSection(SolutionItems) = preProject
+		typed\io\idio.hpp = typed\io\idio.hpp
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -24,6 +37,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1D631250-60AD-4FFD-958E-B13FCD65585A} = {3ADE074C-8157-46DB-BA70-C326A4C9C67D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {997DF307-1292-472F-A9C4-86060077C269}

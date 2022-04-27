@@ -3,16 +3,14 @@
   <ItemGroup>
     <ClCompile Include="id_test.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="identifiable_item_collection_test.cpp" />
+    <ClCompile Include="identifiable_test.cpp" />
+    <ClCompile Include="index_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="io\idio.hpp">
-      <Filter>io</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="io">
-      <UniqueIdentifier>{98bab087-ce7b-491f-8383-5c0a23250fef}</UniqueIdentifier>
-    </Filter>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

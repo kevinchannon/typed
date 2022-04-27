@@ -1,6 +1,6 @@
 #pragma once
 
-#include "index.hpp"
+#include <typed/index.hpp>
 
 #include <map>
 #include <memory>
