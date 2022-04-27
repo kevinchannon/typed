@@ -2,8 +2,8 @@
 
 #include "index.hpp"
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -22,19 +22,17 @@ class identifiable_item_collection {
 
   [[nodiscard]] constexpr size_type size() const noexcept { return static_cast< size_type >(_values.size()); }
 
-  value_type* const add(value_type val) {
-    return add(std::make_unique<value_type>(std::move(val)));
-  }
+  value_type* const add(value_type val) { return add(std::make_unique< value_type >(std::move(val))); }
 
-  value_type* const add(std::unique_ptr<value_type>&& val) {
-    _values.push_back(std::forward<std::unique_ptr< value_type >>(val));
+  value_type* const add(std::unique_ptr< value_type >&& val) {
+    _values.push_back(std::forward< std::unique_ptr< value_type > >(val));
     return _values.back().get();
   }
 
-
+  [[nodiscard]] constexpr const value_type& get(index_type idx) const { return *_values[idx.get()]; }
 
  private:
-  std::vector< std::unique_ptr<value_type> > _values;
+  std::vector< std::unique_ptr< value_type > > _values;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

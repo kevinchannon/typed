@@ -45,6 +45,16 @@ TEST_F(IdentifiableItemCollectionTests, SizeIsCorrect) {
   ASSERT_EQ(Ducks::size_type{2}, ducks.size());
 }
 
+TEST_F(IdentifiableItemCollectionTests, GetReturnsTheExpectedItem) {
+  ducks.add(Duck{"duck-001"});
+  ducks.add(Duck{"duck-002"});
+  ducks.add(Duck{"duck-003"});
+
+  constexpr auto idx = Ducks::index_type{1};
+
+  ASSERT_EQ(Duck::id_type{"duck-002"}, ducks.get(idx).id());
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 }  // namespace
