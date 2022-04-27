@@ -17,19 +17,21 @@ struct Duck : public typed::identifiable_mixin< Duck, std::string > {
 
 using Ducks = typed::identifiable_item_collection<Duck, uint8_t>;
 
-TEST(IdentifiableItemCollectionTests, DefaultConstructedHasZeroSize) {
-  ASSERT_EQ(Ducks::size_type{0}, Ducks{}.size());
+class IdentifiableItemCollectionTests : public ::testing::Test {
+  protected:
+  Ducks ducks;
+};
+TEST_F(IdentifiableItemCollectionTests, DefaultConstructedHasZeroSize) {
+  ASSERT_EQ(Ducks::size_type{0}, ducks.size());
 }
 
-TEST(IdentifiableItemCollectionTests, AddAnItem) {
-  auto ducks = Ducks{};
+TEST_F(IdentifiableItemCollectionTests, AddAnItem) {
   const auto new_duck = ducks.add(Duck{"duck-001"});
   ASSERT_NE(nullptr, new_duck);
   ASSERT_EQ(Duck::id_type{"duck-001"}, new_duck->id());
 }
 
-TEST(IdentifiableItemCollectionTests, SizeIsCorrect) {
-  auto ducks          = Ducks{};
+TEST_F(IdentifiableItemCollectionTests, SizeIsCorrect) {
   ducks.add(Duck{"duck-001"});
   ducks.add(Duck{"duck-002"});
 
