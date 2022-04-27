@@ -23,7 +23,11 @@ class identifiable_item_collection {
   [[nodiscard]] constexpr size_type size() const noexcept { return static_cast< size_type >(_values.size()); }
 
   value_type* add(value_type val) {
-    _values.push_back(std::make_unique<value_type>(std::move(val)));
+    return add(std::make_unique<value_type>(std::move(val)));
+  }
+
+  value_type* add(std::unique_ptr<value_type>&& val) {
+    _values.push_back(std::forward<std::unique_ptr< value_type >>(val));
     return _values.back().get();
   }
 

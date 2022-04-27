@@ -1,6 +1,7 @@
 
 #include "identifiable_item_collection.hpp"
 #include "identifiable.hpp"
+#include "io/idio.hpp"
 
 #include <string>
 
@@ -29,6 +30,12 @@ TEST_F(IdentifiableItemCollectionTests, AddAnItem) {
   const auto new_duck = ducks.add(Duck{"duck-001"});
   ASSERT_NE(nullptr, new_duck);
   ASSERT_EQ(Duck::id_type{"duck-001"}, new_duck->id());
+}
+
+TEST_F(IdentifiableItemCollectionTests, AddAnItemAsAUniquePtr) {
+  const auto new_duck = ducks.add(std::make_unique< Duck >("duck-007"));
+  ASSERT_NE(nullptr, new_duck);
+  ASSERT_EQ(Duck::id_type{"duck-007"}, new_duck->id());
 }
 
 TEST_F(IdentifiableItemCollectionTests, SizeIsCorrect) {
