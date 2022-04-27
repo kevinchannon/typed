@@ -90,6 +90,17 @@ TEST_F(IdentifiableItemCollectionTests, RemoveAnItem) {
   ASSERT_EQ(nullptr, ducks.find(id_to_remove));
 }
 
+TEST_F(IdentifiableItemCollectionTests, RemoveNonExistentItemDoesNothing) {
+  ducks.add(Duck{"duck-001"});
+  ducks.add(Duck{"duck-002"});
+
+  const auto id_to_remove = Duck::id_type{"duck-003"};
+  auto released_duck      = ducks.remove(id_to_remove);
+
+  ASSERT_EQ(nullptr, released_duck);
+  ASSERT_EQ(Ducks::size_type{2}, ducks.size());
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 }  // namespace

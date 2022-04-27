@@ -43,6 +43,10 @@ class identifiable_item_collection {
 
   std::unique_ptr< value_type > remove(const id_type& id) {
     auto idx = _find_index(id);
+    if (_values.size() == idx) {
+      return nullptr;
+    }
+
     auto out  = std::move(_values[idx]);
     _values.erase(std::next(_values.begin(), idx));
 
