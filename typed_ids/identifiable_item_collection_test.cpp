@@ -76,6 +76,20 @@ TEST_F(IdentifiableItemCollectionTests, FindNonExistantItemReturnsNull) {
   ASSERT_EQ(nullptr, ducks.find(Duck::id_type{"duck-001"}));
 }
 
+
+TEST_F(IdentifiableItemCollectionTests, RemoveAnItem) {
+  ducks.add(Duck{"duck-001"});
+  ducks.add(Duck{"duck-002"});
+
+  const auto id_to_remove  = Duck::id_type{"duck-001"};
+  auto released_duck = ducks.remove(id_to_remove);
+  
+  ASSERT_NE(nullptr, released_duck);
+  ASSERT_EQ(id_to_remove, released_duck->id());
+  ASSERT_EQ(Ducks::size_type{1}, ducks.size());
+  ASSERT_EQ(nullptr, ducks.find(id_to_remove));
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 }  // namespace
