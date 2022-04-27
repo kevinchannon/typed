@@ -4,6 +4,8 @@
 
 #include <memory>
 #include <vector>
+#include <map>
+#include <utility>
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -26,13 +28,20 @@ class identifiable_item_collection {
   value_type* const add(value_type val) { return add(std::make_unique< value_type >(std::move(val))); }
 
   value_type* const add(std::unique_ptr< value_type >&& val) {
+    _id_to_value_lookup.insert(std::make_pair(val->id(), val.get()));
     _values.push_back(std::forward< std::unique_ptr< value_type > >(val));
     return _values.back().get();
   }
 
   [[nodiscard]] constexpr const value_type& get(index_type idx) const { return *_values[idx.get()]; }
 
+  [[nodiscard]] constexpr const value_type* const find(const typename value_type::id_type& id) const {
+    const auto item = _id_to_value_lookup.find(id);
+    return item != _id_to_value_lookup.end() ? item->second : nullptr;
+  }
+
  private:
+  std::map< typename value_type::id_type, value_type* > _id_to_value_lookup;
   std::vector< std::unique_ptr< value_type > > _values;
 };
 

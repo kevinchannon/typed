@@ -62,6 +62,16 @@ TEST_F(IdentifiableItemCollectionTests, GetReturnsTheExpectedItem) {
   ASSERT_EQ(Duck::id_type{"duck-002"}, ducks.get(idx).id());
 }
 
+TEST_F(IdentifiableItemCollectionTests, FindReturnsTheCorrectItem) {
+  ducks.add(Duck{"duck-001"});
+  ducks.add(Duck{"duck-002"});
+  ducks.add(Duck{"duck-003"});
+
+  const auto duck = ducks.find(Duck::id_type{"duck-002"});
+  ASSERT_NE(nullptr, duck);
+  ASSERT_EQ(Duck::id_type{"duck-002"}, duck->id());
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 }  // namespace
