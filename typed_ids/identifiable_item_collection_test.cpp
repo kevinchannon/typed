@@ -72,6 +72,10 @@ TEST_F(IdentifiableItemCollectionTests, FindReturnsTheCorrectItem) {
   ASSERT_EQ(Duck::id_type{"duck-002"}, duck->id());
 }
 
+TEST_F(IdentifiableItemCollectionTests, FindNonExistantItemReturnsNull) {
+  ASSERT_EQ(nullptr, ducks.find(Duck::id_type{"duck-001"}));
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 }  // namespace
