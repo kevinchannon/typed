@@ -101,18 +101,18 @@ int main() {
 
   dogs.add(Dog{2});
 
-  const auto& d5 = dogs.get(Dogs::index_type{0});
+  const auto& d5 = dogs.at(Dogs::index_type{0});
   std::cout << "The 0-th dog has ID " << d5.id() << std::endl;
 
   for (auto i = Ducks::index_type{0}; i < ducks.count(); ++i) {
-    std::cout << "Duck " << i << " has ID " << ducks.get(i).id() << std::endl;
+    std::cout << "Duck " << i << " has ID " << ducks.at(i).id() << std::endl;
   }
 
   // This will fail to build if uncommented, since a dog-index can't be used to get an item from a
   // collection of ducks.
   //
   // for (auto i = Dogs::index_type{0}; i < dogs.count(); ++i) {
-  //   std::cout << "Dog " << i << " has ID " << ducks.get(i).id() << std::endl;
+  //   std::cout << "Dog " << i << " has ID " << ducks.at(i).id() << std::endl;
   // }
 
   /////////////////////////////////////////////////////////////////////////////

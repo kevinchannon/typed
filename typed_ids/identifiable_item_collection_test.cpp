@@ -61,7 +61,7 @@ TEST_F(IdentifiableItemCollectionTests, GetReturnsTheExpectedItem) {
 
   constexpr auto idx = Ducks::index_type{1};
 
-  ASSERT_EQ(Duck::id_type{"duck-002"}, ducks.get(idx).id());
+  ASSERT_EQ(Duck::id_type{"duck-002"}, ducks.at(idx).id());
 }
 
 TEST_F(IdentifiableItemCollectionTests, FindReturnsTheCorrectItem) {
