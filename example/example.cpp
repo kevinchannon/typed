@@ -80,9 +80,9 @@ int main() {
   auto dogs  = Dogs{};
   auto ducks = Ducks{};
 
-  const auto d1 = dogs.add(Dog{1});
+  const auto d1 = dogs.add(Dog{1}).first;
   const auto d2 = Dog{1};
-  const auto d3 = ducks.add(Duck{1});
+  const auto d3 = ducks.add(Duck{1}).first;
 
   if (d1->id() == d2.id()) {
     std::cout << "IDs match" << std::endl;
@@ -121,7 +121,7 @@ int main() {
   //
   /////////////////////////////////////////////////////////////////////////////
   auto cats     = Cats{};
-  const auto c1 = cats.add(Cat{"Cat-2022-04-27-01"});
+  const auto c1 = cats.add(Cat{"Cat-2022-04-27-01"}).first;
 
   std::cout << "Cat 1 has ID " << c1->id() << std::endl;
 

@@ -30,18 +30,27 @@ class identifiable_item_collection {
 
   [[nodiscard]] constexpr size_type count() const noexcept { return size(); }
 
-  value_type* const add(std::unique_ptr< value_type >&& val) {
-    _values.push_back(std::forward< std::unique_ptr< value_type > >(val));
-    return _values.back().get();
+  std::pair< value_type*, bool > const add(std::unique_ptr< value_type >&& val) {
+    auto out = find(val->id());
+    if (nullptr != out) {
+      return {out, false};
+    }
+
+    _values.push_back(std::move(val));
+    return {_values.back().get(), true};
   }
 
-  value_type* const add(value_type val) { return add(std::make_unique< value_type >(std::move(val))); }
+  std::pair<value_type*, bool> const add(value_type val) { return add(std::make_unique< value_type >(std::move(val))); }
 
   [[nodiscard]] constexpr const value_type& get(index_type idx) const { return *_values[idx.get()]; }
 
   [[nodiscard]] constexpr const value_type* const find(const id_type& id) const {
     const auto idx = _find_index(id);
     return idx != _values.size() ? _values[idx].get() : nullptr;
+  }
+
+  [[nodiscard]] constexpr value_type* const find(const id_type& id) {
+    return const_cast< value_type* >(const_cast< const _this_type* >(this)->find(id));
   }
 
   std::unique_ptr< value_type > remove(const id_type& id) {

@@ -27,14 +27,16 @@ TEST_F(IdentifiableItemCollectionTests, DefaultConstructedHasZeroSize) {
 }
 
 TEST_F(IdentifiableItemCollectionTests, AddAnItem) {
-  const auto new_duck = ducks.add(Duck{"duck-001"});
+  const auto [new_duck, added] = ducks.add(Duck{"duck-001"});
   ASSERT_NE(nullptr, new_duck);
+  ASSERT_TRUE(added);
   ASSERT_EQ(Duck::id_type{"duck-001"}, new_duck->id());
 }
 
 TEST_F(IdentifiableItemCollectionTests, AddAnItemAsAUniquePtr) {
-  const auto new_duck = ducks.add(std::make_unique< Duck >("duck-007"));
+  const auto [new_duck, added] = ducks.add(std::make_unique< Duck >("duck-007"));
   ASSERT_NE(nullptr, new_duck);
+  ASSERT_TRUE(added);
   ASSERT_EQ(Duck::id_type{"duck-007"}, new_duck->id());
 }
 
@@ -99,6 +101,16 @@ TEST_F(IdentifiableItemCollectionTests, RemoveNonExistentItemDoesNothing) {
 
   ASSERT_EQ(nullptr, released_duck);
   ASSERT_EQ(Ducks::size_type{2}, ducks.size());
+}
+
+TEST_F(IdentifiableItemCollectionTests, AddWithTheSameIdReturnsFalse) {
+  auto [d1, added_1] = ducks.add(Duck{"duck-001"});
+  ASSERT_NE(nullptr, d1);
+  ASSERT_TRUE(added_1);
+
+  auto [d2, added_2] = ducks.add(Duck{"duck-001"});
+  ASSERT_NE(nullptr, d1);
+  ASSERT_FALSE(added_2);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
