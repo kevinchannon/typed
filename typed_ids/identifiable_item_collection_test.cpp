@@ -113,6 +113,16 @@ TEST_F(IdentifiableItemCollectionTests, AddWithTheSameIdReturnsFalse) {
   ASSERT_FALSE(added_2);
 }
 
+TEST_F(IdentifiableItemCollectionTests, EmplaceAnItem) {
+  auto [d, added] = ducks.emplace("duck-0");
+  ASSERT_NE(nullptr, d);
+  ASSERT_TRUE(added);
+
+  auto d_find = ducks.find(Duck::id_type{"duck-0"});
+  ASSERT_NE(nullptr, d_find);
+  ASSERT_EQ(Duck::id_type{"duck-0"}, d_find->id());
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 }  // namespace

@@ -30,7 +30,7 @@ class identifiable_item_collection {
 
   [[nodiscard]] constexpr size_type count() const noexcept { return size(); }
 
-  std::pair< value_type*, bool > const add(std::unique_ptr< value_type >&& val) {
+  std::pair< value_type* const, bool > add(std::unique_ptr< value_type >&& val) {
     auto out = find(val->id());
     if (nullptr != out) {
       return {out, false};
@@ -40,7 +40,12 @@ class identifiable_item_collection {
     return {_values.back().get(), true};
   }
 
-  std::pair<value_type*, bool> const add(value_type val) { return add(std::make_unique< value_type >(std::move(val))); }
+  std::pair<value_type* const, bool> add(value_type val) { return add(std::make_unique< value_type >(std::move(val))); }
+
+  template<typename... Arg_Ts>
+  std::pair< value_type* const, bool > emplace(Arg_Ts... args) {
+    return add(std::make_unique< value_type >(std::forward< Arg_Ts >(args)...));
+  }
 
   [[nodiscard]] constexpr const value_type& get(index_type idx) const { return *_values[idx.get()]; }
 
