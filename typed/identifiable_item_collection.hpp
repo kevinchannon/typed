@@ -47,7 +47,8 @@ class identifiable_item_collection {
     return add(std::make_unique< value_type >(std::forward< Arg_Ts >(args)...));
   }
 
-  [[nodiscard]] constexpr const value_type& at(index_type idx) const { return *_values[idx.get()]; }
+  [[nodiscard]] constexpr const value_type& at(const index_type& idx) const { return *_values[idx.get()]; }
+  [[nodiscard]] value_type& at(const index_type& idx) { return *_values[idx.get()]; }
 
   [[nodiscard]] constexpr const value_type* const find(const id_type& id) const {
     const auto idx = _find_index(id);
