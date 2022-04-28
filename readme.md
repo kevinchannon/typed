@@ -51,3 +51,37 @@ public:
     Buttong(int id) : typed::identifiable_mixin<Button, int>{ std::move(id)} {}
 };
 ```
+
+The mixin provides an `id()` method for our class and manages a variable that stores the ID; as well as some type aliases to allow use to find out the type of the ID.  The ID has the type:
+```
+using id_type = id< _base_type, Id_T >;
+```
+where the `_base_type` is whatever the first template argument to `identifiable_mixin` is and `Id_T` is the underlying ID type, `Button` and `int`, respectively, in the example above. The type of the ID can be anything that's comparable.  So, it could be an `int`, as above, or a `float`, if you were a bit mad, or a `std:string`, or `GUID`, or you could define your own comparable type, like a serial number, or something.
+
+Once you've mixed-in the identifiable type, then you can do something like:
+```
+constexpr auto button = Button{1};
+
+constexpr auto id = button.id();
+```
+The ID that comes back out, is now only comparable with the Id's of other buttons.  So, if you'd also defined `MenuItem` and `ScrollBar` classes, with their respective collections, then the find function could be mofidied to something like:
+```
+template<typename Container_T, typename Id_T>
+const typename Container_T::value_type* const* find_item(const Container_T& items, const Id_T id) {
+    const auto item = std::find_if(items.begin(), items.end(), [id](auto&& item){
+        return id == item.id();
+    });
+
+    return items.end() != item ? &(*item) : nullptr; 
+}
+```
+Now, attempting to do the comparison that previously resulted in a run-time bug is now a compilation error:
+```
+const auto id = button1.id();
+
+/*
+    ... Insert lots of code here, so that you don't easily see the definition of `id`.
+*/
+
+auto menu_item = find(menu_items, id);  // Compilation failure here! Button::id_type is not comparable with MenuItem::id_type!
+```
