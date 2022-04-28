@@ -15,9 +15,9 @@
 /// The second template argument is the actual type of the ID that you want to use. Can be anything, really.  It needs to
 /// have well-behaved comparison operators though.
 /// </summary>
-class Dog : public typed::identifiable_mixin< Dog, size_t > {
+class Dog : public typed::identifiable< Dog, size_t > {
  public:
-  Dog(size_t id) : typed::identifiable_mixin< Dog, size_t >{id} {}
+  Dog(size_t id) : typed::identifiable< Dog, size_t >{id} {}
 };
 
 /// <summary>
@@ -29,9 +29,9 @@ using Dogs = typed::identifiable_item_collection< Dog, size_t >;
 /// <summary>
 /// Another identifiable type. Its ID is not comparable with that of a Dog.
 /// </summary>
-class Duck : public typed::identifiable_mixin< Duck, size_t > {
+class Duck : public typed::identifiable< Duck, size_t > {
  public:
-  Duck(size_t id) : typed::identifiable_mixin< Duck, size_t >{id} {}
+  Duck(size_t id) : typed::identifiable< Duck, size_t >{id} {}
 };
 
 using Ducks = typed::identifiable_item_collection< Duck, size_t >;
@@ -39,9 +39,9 @@ using Ducks = typed::identifiable_item_collection< Duck, size_t >;
 /// <summary>
 /// This type uses a std::string as the ID type. Pretty much any sensible type should be OK to use an ID.
 /// </summary>
-class Cat : public typed::identifiable_mixin< Cat, std::string > {
+class Cat : public typed::identifiable< Cat, std::string > {
  public:
-  Cat(typename id_type::value_type id) : typed::identifiable_mixin< Cat, std::string >{std::move(id)} {}
+  Cat(typename id_type::value_type id) : typed::identifiable< Cat, std::string >{std::move(id)} {}
 };
 
 using Cats = typed::identifiable_item_collection< Cat, size_t >;
@@ -64,9 +64,9 @@ struct SerialNumber {
   }
 };
 
-class Printer : public typed::identifiable_mixin<Printer, SerialNumber> {
+class Printer : public typed::identifiable<Printer, SerialNumber> {
  public:
-  Printer(SerialNumber id) : typed::identifiable_mixin< Printer, SerialNumber >{id} {}
+  Printer(SerialNumber id) : typed::identifiable< Printer, SerialNumber >{id} {}
 };
 
 using Printers = typed::identifiable_item_collection<Printer, size_t>;

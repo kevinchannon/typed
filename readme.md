@@ -41,14 +41,14 @@ This is a bit of a noddy example, but these kinds of error can be annoying and d
 
 ### Using types to generate compile-time errors
 
-The code in this repo includes a bunch of templates to allow you to easily stamp IDs and array indices with a particular type, preventing accidental use of an ID to look-up something of the wrong type. First of all, you derive the type that you want to have an ID from `typed::identifiable_mixin`:
+The code in this repo includes a bunch of templates to allow you to easily stamp IDs and array indices with a particular type, preventing accidental use of an ID to look-up something of the wrong type. First of all, you derive the type that you want to have an ID from `typed::identifiable`:
 ```
 #include <typed/identifiable.hpp>
 
 
-class Button : public typed::identifiable_mixin<Button, int> {
+class Button : public typed::identifiable<Button, int> {
 public:
-    Buttong(int id) : typed::identifiable_mixin<Button, int>{ std::move(id)} {}
+    Buttong(int id) : typed::identifiable<Button, int>{ std::move(id)} {}
 };
 ```
 
@@ -56,7 +56,7 @@ The mixin provides an `id()` method for our class and manages a variable that st
 ```
 using id_type = id< _base_type, Id_T >;
 ```
-where the `_base_type` is whatever the first template argument to `identifiable_mixin` is and `Id_T` is the underlying ID type, `Button` and `int`, respectively, in the example above. The type of the ID can be anything that's comparable.  So, it could be an `int`, as above, or a `float`, if you were a bit mad, or a `std:string`, or `GUID`, or you could define your own comparable type, like a serial number, or something.
+where the `_base_type` is whatever the first template argument to `identifiable` is and `Id_T` is the underlying ID type, `Button` and `int`, respectively, in the example above. The type of the ID can be anything that's comparable.  So, it could be an `int`, as above, or a `float`, if you were a bit mad, or a `std:string`, or `GUID`, or you could define your own comparable type, like a serial number, or something.
 
 Once you've mixed-in the identifiable type, then you can do something like:
 ```

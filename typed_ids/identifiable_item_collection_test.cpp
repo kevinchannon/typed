@@ -11,8 +11,8 @@ namespace {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-struct Duck : public typed::identifiable_mixin< Duck, std::string > {
-  explicit Duck(std::string id) : typed::identifiable_mixin< Duck, std::string >{std::move(id)} {}
+struct Duck : public typed::identifiable< Duck, std::string > {
+  explicit Duck(std::string id) : typed::identifiable< Duck, std::string >{std::move(id)} {}
   explicit Duck(id_type id) : Duck{id.get()} {}
 };
 

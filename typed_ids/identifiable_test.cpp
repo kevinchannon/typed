@@ -9,11 +9,11 @@ namespace {
 ///////////////////////////////////////////////////////////////////////////////
 
 /// <summary>
-/// A sheep is identifiable and we use the identifiable_mixin to provide our id-related data and methods.
+/// A sheep is identifiable and we use the identifiable to provide our id-related data and methods.
 /// </summary>
-struct Sheep : public typed::identifiable_mixin< Sheep, size_t > {
-  constexpr Sheep(id_type id) : typed::identifiable_mixin< Sheep, size_t >{id} {}
-  constexpr Sheep(size_t id) : typed::identifiable_mixin< Sheep, size_t >{id} {}
+struct Sheep : public typed::identifiable< Sheep, size_t > {
+  constexpr Sheep(id_type id) : typed::identifiable< Sheep, size_t >{id} {}
+  constexpr Sheep(size_t id) : typed::identifiable< Sheep, size_t >{id} {}
 };
 
 ///////////////////////////////////////////////////////////////////////////////
