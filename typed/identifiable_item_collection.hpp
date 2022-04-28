@@ -16,7 +16,8 @@ namespace typed {
 template < typename Item_T, typename Index_T = size_t >
 class identifiable_item_collection {
   using _this_type      = identifiable_item_collection< Item_T, Index_T >;
-  using _container_type = std::vector< std::unique_ptr< Item_T > >;
+  using _ptr_type       = std::unique_ptr< Item_T >;
+  using _container_type = std::vector< _ptr_type >;
 
  public:
   using value_type = Item_T;
@@ -30,7 +31,7 @@ class identifiable_item_collection {
 
   [[nodiscard]] constexpr size_type count() const noexcept { return size(); }
 
-  std::pair< value_type* const, bool > add(std::unique_ptr< value_type >&& val) {
+  std::pair< value_type* const, bool > add(_ptr_type&& val) {
     auto out = find(val->id());
     if (nullptr != out) {
       return {out, false};
@@ -39,9 +40,9 @@ class identifiable_item_collection {
     return {_unchecked_add(std::move(val)), true};
   }
 
-  std::pair<value_type* const, bool> add(value_type val) { return add(std::make_unique< value_type >(std::move(val))); }
+  std::pair< value_type* const, bool > add(value_type val) { return add(std::make_unique< value_type >(std::move(val))); }
 
-  template<typename... Arg_Ts>
+  template < typename... Arg_Ts >
   std::pair< value_type* const, bool > emplace(Arg_Ts... args) {
     return add(std::make_unique< value_type >(std::forward< Arg_Ts >(args)...));
   }
@@ -57,7 +58,7 @@ class identifiable_item_collection {
     return const_cast< value_type* >(const_cast< const _this_type* >(this)->find(id));
   }
 
-  std::unique_ptr< value_type > remove(const id_type& id) {
+  _ptr_type remove(const id_type& id) {
     auto idx = _find_index(id);
     if (_values.size() == idx) {
       return nullptr;
@@ -75,8 +76,8 @@ class identifiable_item_collection {
                          std::find_if(_values.begin(), _values.end(), [&id](auto&& val) { return val->id() == id; }));
   }
 
-  value_type* _unchecked_add(std::unique_ptr<value_type>&& val) {
-    _values.push_back(std::forward < std::unique_ptr< value_type >>(val));
+  value_type* _unchecked_add(_ptr_type&& val) {
+    _values.push_back(std::forward< _ptr_type >(val));
     return _values.back().get();
   }
 
