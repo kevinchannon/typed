@@ -36,8 +36,7 @@ class identifiable_item_collection {
       return {out, false};
     }
 
-    _values.push_back(std::move(val));
-    return {_values.back().get(), true};
+    return {_unchecked_add(std::move(val)), true};
   }
 
   std::pair<value_type* const, bool> add(value_type val) { return add(std::make_unique< value_type >(std::move(val))); }
@@ -74,6 +73,11 @@ class identifiable_item_collection {
   typename _container_type::size_type _find_index(const id_type& id) const {
     return std::distance(_values.begin(),
                          std::find_if(_values.begin(), _values.end(), [&id](auto&& val) { return val->id() == id; }));
+  }
+
+  value_type* _unchecked_add(std::unique_ptr<value_type>&& val) {
+    _values.push_back(std::forward < std::unique_ptr< value_type >>(val));
+    return _values.back().get();
   }
 
   _container_type _values;
