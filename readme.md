@@ -41,7 +41,7 @@ This is a bit of a noddy example, but these kinds of error can be annoying and d
 
 ### Using types to generate compile-time errors
 
-The code in this repo includes a bunch of templates to allow you to easily stamp IDs and array indexs with a particular type, preventing accidental use of an ID to look-up something of the wrong type. First of all, you derive the type that you want to have an ID from `typed::identifiable_mixin`:
+The code in this repo includes a bunch of templates to allow you to easily stamp IDs and array indices with a particular type, preventing accidental use of an ID to look-up something of the wrong type. First of all, you derive the type that you want to have an ID from `typed::identifiable_mixin`:
 ```
 #include <typed/identifiable.hpp>
 
